@@ -1,6 +1,7 @@
 <?php
 
 require 'vendor/autoload.php';
+
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__);
@@ -26,8 +27,9 @@ curl_setopt($ch, CURLOPT_VERBOSE, 0);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 $response = curl_exec($ch);
 curl_close($ch);
-var_dump($response);
 echo "<hr>";
 $return_data = json_decode($response);
+$iconCode = $return_data->weather[0]->icon;
+echo "<img src='https://openweathermap.org/img/wn/{$iconCode}@2x.png' alt='Weather Icon'>";
 echo '<pre>' . var_export($return_data, true) . '</pre>';
 echo "<hr>";
